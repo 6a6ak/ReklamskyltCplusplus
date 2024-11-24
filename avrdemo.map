@@ -856,3 +856,4 @@ END GROUP
  *(.debug_sup)
 OUTPUT(avrdemo.elf elf32-avr)
 LOAD linker stubs
+
