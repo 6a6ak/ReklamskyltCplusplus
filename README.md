@@ -7,5 +7,5 @@ C++-projekt om annonsering på LCD
 - Axel Larsson
 - Babak Aharifard
 - Viktor Bood
-- ?
+- Åbell Falow
 - ?
