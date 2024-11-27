@@ -8,4 +8,4 @@ C++-projekt om annonsering på LCD
 - Babak Aharifard
 - Viktor Bood
 - Åbell Falow
-- ?
+- Rimsha Tauseef
