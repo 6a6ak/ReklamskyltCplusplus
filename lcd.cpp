@@ -50,7 +50,7 @@ void HD44780::Home(void) {
   _delay_ms(2);
 }
 
-void HD44780::Initialize(void) { 
+void HD44780::Initialize(void) {
   // Configure pins as output
   LCD_RS_DIR |= LCD_RS;
   LCD_E_DIR |= LCD_E;
@@ -74,14 +74,14 @@ void HD44780::Initialize(void) {
   WriteCommand(0x06); // Entry mode: Increment cursor
 
   _delay_us(25); //safety delay
-//   uint8_t customChar[] = customA;
-//   CreateChar(0, customChar);
-//   uint8_t customCharTwo[] = hourglass;
-//   CreateChar(1, customCharTwo);
-//   uint8_t leftHour[] = leftSideHourglass;
-//   CreateChar(2, leftHour);
-//   uint8_t rightHour[] = rightSideHourglass;
-//   CreateChar(3, rightHour);
+  uint8_t customChar[] = customA;
+  CreateChar(0, customChar);
+  uint8_t customCharTwo[] = hourglass;
+  CreateChar(1, customCharTwo);
+  uint8_t leftHour[] = leftSideHourglass;
+  CreateChar(2, leftHour);
+  uint8_t rightHour[] = rightSideHourglass;
+  CreateChar(3, rightHour);
 }
 
 void HD44780::OutNibble(unsigned char nibble) {
@@ -112,11 +112,11 @@ void HD44780::Write(unsigned char byte) {
   OutNibble(byte);
 }
 
-// #define LCD_SETCGRAMADDR 0x40
-// void HD44780::CreateChar(uint8_t location, uint8_t charArray[]) {
-//   location &= 0x7;
-//   WriteCommand(LCD_SETCGRAMADDR | (location << 3));
-//   for (uint8_t i = 0; i < 8; i++) {
-//     WriteData(charArray[i]);
-//   }
-// }
+#define LCD_SETCGRAMADDR 0x40
+void HD44780::CreateChar(uint8_t location, uint8_t charArray[]) {
+  location &= 0x7;
+  WriteCommand(LCD_SETCGRAMADDR | (location << 3));
+  for (uint8_t i = 0; i < 8; i++) {
+    WriteData(charArray[i]);
+  }
+}
