@@ -4,7 +4,7 @@ C++-projekt om annonsering på LCD
 
 ## Gruppmedlemmar
 
-- Axel Larsson :)
+- Axel Larsson 
 - Babak Aharifard
 - Viktor Bood
 - Åbell Falow
