@@ -11,7 +11,7 @@
 // C (analog input pins)
 // PORTD D (digital pins 0 to 7)
 #define LED_PIN 2
-#define BUTTON_PIN 1
+#define BUTTON_PIN 1 //test
 
 #define BIT_SET(a, b) ((a) |= (1ULL << (b)))
 #define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
