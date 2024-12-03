@@ -15,35 +15,34 @@
 #define BUTTON_PIN 1
 
 #define BIT_SET(a, b) ((a) |= (1ULL << (b)))
-#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
-#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
-#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) 
+#define BIT_CLEAR(a, b) ((a) &= ~(1ULL << (b)))
+#define BIT_FLIP(a, b) ((a) ^= (1ULL << (b)))
+#define BIT_CHECK(a, b) (!!((a) & (1ULL << (b))))
 
+#define BUTTON_IS_CLICKED(PINB, BUTTON_PIN) !BIT_CHECK(PINB, BUTTON_PIN)
 
-#define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
-
- 
-
-int main(void){
+int main(void)
+{
     init_serial();
     HD44780 lcd;
 
     lcd.Initialize(); // Initialize the LCD
     lcd.Clear();      // Clear the LCD
 
-    lcd.WriteText((char *)"Hej hej");
-    printf("Hej hej\n");
+    lcd.WriteText((char *)"Hej Babak");
+    printf("Hej Babak in terminal\n");
     int r = 12;
-    printf("Hej 2 %d\n",r);
+    printf("Hej 2 %d\n", r);
     // // //Sätt till INPUT_PULLUP
     // BIT_CLEAR(DDRB,BUTTON_PIN); // INPUT MODE
-    // BIT_SET(PORTB,BUTTON_PIN); 
+    // BIT_SET(PORTB,BUTTON_PIN);
 
     // DATA DIRECTION = avgör mode
     // om output så skickar vi  1 eller 0 på motsvarande pinne på PORT
     // om input så läser vi  1 eller 0 på motsvarande pinne på PIN
-    //bool blinking = false;
-    while(1){
+    // bool blinking = false;
+    while (1)
+    {
     }
     return 0;
 }

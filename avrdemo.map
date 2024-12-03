@@ -396,7 +396,7 @@ END GROUP
  *(.jumptables*)
                 0x00000a40                        _etext = .
 
-.data           0x00800100       0x34 load address 0x00000a40
+.data           0x00800100       0x4c load address 0x00000a40
                 0x00800100                        PROVIDE (__data_start = .)
  *(.data)
  .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
@@ -422,48 +422,48 @@ END GROUP
  .rodata        0x00800100       0x18 bin/debug/lcd.o
  *(.rodata*)
  .rodata.str1.1
-                0x00800118       0x1b bin/debug/main.o
-                                 0x12 (size before relaxing)
+                0x00800118       0x33 bin/debug/main.o
+                                 0x2a (size before relaxing)
  .rodata.str1.1
-                0x00800133        0x9 bin/debug/lcd.o
+                0x0080014b        0x9 bin/debug/lcd.o
  *(.gnu.linkonce.r*)
-                0x0080013c                        . = ALIGN (0x2)
- *fill*         0x00800133        0x1 
-                0x00800134                        _edata = .
-                0x00800134                        PROVIDE (__data_end = .)
+                0x00800154                        . = ALIGN (0x2)
+ *fill*         0x0080014b        0x1 
+                0x0080014c                        _edata = .
+                0x0080014c                        PROVIDE (__data_end = .)
 
-.bss            0x00800134       0x22
-                0x00800134                        PROVIDE (__bss_start = .)
+.bss            0x0080014c       0x22
+                0x0080014c                        PROVIDE (__bss_start = .)
  *(.bss)
- .bss           0x00800134        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
- .bss           0x00800134        0x0 bin/debug/main.o
- .bss           0x00800134        0x0 bin/debug/lcd.o
- .bss           0x00800134       0x1c bin/debug/uart.o
- .bss           0x00800150        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
- .bss           0x00800150        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800150        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_clear_bss.o)
- .bss           0x00800150        0x6 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(iob.o)
-                0x00800150                __iob
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(printf.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(puts.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(fputc.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_prologue.o)
- .bss           0x00800156        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_epilogue.o)
+ .bss           0x0080014c        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .bss           0x0080014c        0x0 bin/debug/main.o
+ .bss           0x0080014c        0x0 bin/debug/lcd.o
+ .bss           0x0080014c       0x1c bin/debug/uart.o
+ .bss           0x00800168        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
+ .bss           0x00800168        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800168        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00800168        0x6 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(iob.o)
+                0x00800168                __iob
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(printf.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(puts.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(fputc.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_prologue.o)
+ .bss           0x0080016e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_epilogue.o)
  *(.bss*)
  *(COMMON)
-                0x00800156                        PROVIDE (__bss_end = .)
+                0x0080016e                        PROVIDE (__bss_end = .)
                 0x00000a40                        __data_load_start = LOADADDR (.data)
-                0x00000a74                        __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000a8c                        __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800156        0x0
+.noinit         0x0080016e        0x0
                 [!provide]                        PROVIDE (__noinit_start = .)
  *(.noinit .noinit.* .gnu.linkonce.n.*)
                 [!provide]                        PROVIDE (__noinit_end = .)
-                0x00800156                        _end = .
+                0x0080016e                        _end = .
                 [!provide]                        PROVIDE (__heap_start = .)
                 [!provide]                        PROVIDE (__flmap_init_label = DEFINED (__flmap_noinit_start)?__flmap_noinit_start:0x0)
                 [!provide]                        PROVIDE (__flmap = DEFINED (__flmap)?__flmap:0x0)
