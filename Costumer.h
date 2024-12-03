@@ -2,7 +2,7 @@
 #define __COSTUMER_H
 
 class Costumer{
- private:
+ public:
  char companyname[100];
  char message1[100];
  char message2[100];
@@ -11,6 +11,7 @@ class Costumer{
 
  public:
  Costumer(char *companyname, char *message1, char *message2, char *message3, int pay);
+ 
 };
 
 #endif
