@@ -1,4 +1,4 @@
-#include "costumer.h"
+#include "Costumer.h"
 #include <string.h>
 
 Costumer::Costumer(char *companyname, char *message1, char *message2, char *message3, int ay)
