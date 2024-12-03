@@ -21,13 +21,14 @@
 
 #define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
 
+
 int main(void){
     HD44780 lcd;
 
     lcd.Initialize(); // Initialize the LCD
     lcd.Clear();      // Clear the LCD
 
-    lcd.WriteText((char *)"Hej hej");
+    lcd.WriteText((char *)")");
 
     // //Sätt till INPUT_PULLUP
     // BIT_CLEAR(DDRB,BUTTON_PIN); // INPUT MODE

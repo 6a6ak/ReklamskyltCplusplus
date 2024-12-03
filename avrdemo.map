@@ -293,7 +293,7 @@ END GROUP
  *(.jumptables*)
                 0x0000035c                        _etext = .
 
-.data           0x00800100       0x2a load address 0x0000035c
+.data           0x00800100       0x3e load address 0x0000035c
                 0x00800100                        PROVIDE (__data_start = .)
  *(.data)
  .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
@@ -307,35 +307,34 @@ END GROUP
  .rodata        0x00800100       0x18 bin/debug/lcd.o
  *(.rodata*)
  .rodata.str1.1
-                0x00800118       0x11 bin/debug/main.o
-                                  0x8 (size before relaxing)
+                0x00800118       0x26 bin/debug/main.o
+                                 0x1d (size before relaxing)
  .rodata.str1.1
-                0x00800129        0x9 bin/debug/lcd.o
+                0x0080013e        0x9 bin/debug/lcd.o
  *(.gnu.linkonce.r*)
-                0x00800132                        . = ALIGN (0x2)
- *fill*         0x00800129        0x1 
-                0x0080012a                        _edata = .
-                0x0080012a                        PROVIDE (__data_end = .)
+                0x00800148                        . = ALIGN (0x2)
+                0x0080013e                        _edata = .
+                0x0080013e                        PROVIDE (__data_end = .)
 
-.bss            0x0080012a        0x0
+.bss            0x0080013e        0x0
                 [!provide]                        PROVIDE (__bss_start = .)
  *(.bss)
- .bss           0x0080012a        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
- .bss           0x0080012a        0x0 bin/debug/main.o
- .bss           0x0080012a        0x0 bin/debug/lcd.o
- .bss           0x0080012a        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
- .bss           0x0080012a        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080013e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .bss           0x0080013e        0x0 bin/debug/main.o
+ .bss           0x0080013e        0x0 bin/debug/lcd.o
+ .bss           0x0080013e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
+ .bss           0x0080013e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end = .)
                 0x0000035c                        __data_load_start = LOADADDR (.data)
-                0x00000386                        __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000039a                        __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080012a        0x0
+.noinit         0x0080013e        0x0
                 [!provide]                        PROVIDE (__noinit_start = .)
  *(.noinit .noinit.* .gnu.linkonce.n.*)
                 [!provide]                        PROVIDE (__noinit_end = .)
-                0x0080012a                        _end = .
+                0x0080013e                        _end = .
                 [!provide]                        PROVIDE (__heap_start = .)
                 [!provide]                        PROVIDE (__flmap_init_label = DEFINED (__flmap_noinit_start)?__flmap_noinit_start:0x0)
                 [!provide]                        PROVIDE (__flmap = DEFINED (__flmap)?__flmap:0x0)
