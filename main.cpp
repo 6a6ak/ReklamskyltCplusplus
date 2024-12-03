@@ -34,7 +34,8 @@ int main(void){
 
 
 
-    lcd.WriteText((char *)"Hej hej");
+    //lcd.WriteText((char *)"Hej hej");
+    lcd.WriteText(Harry.message1);
     // printf("Hej hej\n");
     // int r = 12;
     // printf("Hej 2 %d\n",r);
