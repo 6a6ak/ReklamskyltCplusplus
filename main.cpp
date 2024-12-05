@@ -3,7 +3,6 @@
 #include <avr/interrupt.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h> // Include for atoi
 #include "lcd.h"
 #include "uart.h"
 #include "Costumer.h"
@@ -17,67 +16,42 @@
 #define BUTTON_PIN 1
 
 #define BIT_SET(a, b) ((a) |= (1ULL << (b)))
-#define BIT_CLEAR(a, b) ((a) &= ~(1ULL << (b)))
-#define BIT_FLIP(a, b) ((a) ^= (1ULL << (b)))
-#define BIT_CHECK(a, b) (!!((a) & (1ULL << (b))))
+#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
+#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
+#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) 
 
-#define BUTTON_IS_CLICKED(PINB, BUTTON_PIN) !BIT_CHECK(PINB, BUTTON_PIN)
 
-void sendCostumerData(const Costumer& costumer) {
-    uart_puts("Company Name: ");
-    uart_puts(costumer.getCompanyName());
-    uart_puts("\nMessage 1: ");
-    uart_puts(costumer.getMessage1());
-    uart_puts("\nMessage 2: ");
-    uart_puts(costumer.getMessage2());
-    uart_puts("\nMessage 3: ");
-    uart_puts(costumer.getMessage3());
-    uart_puts("\nPay: ");
-    char payStr[10];
-    sprintf(payStr, "%d", costumer.getPay());
-    uart_puts(payStr);
-    uart_puts("\n");
-}
+#define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
 
-void receiveCostumerData(Costumer& costumer) {
-    char buffer[100];
-    uart_gets(buffer, sizeof(buffer));
-    costumer.setCompanyName(buffer);
-
-    uart_gets(buffer, sizeof(buffer));
-    costumer.setMessage1(buffer);
-
-    uart_gets(buffer, sizeof(buffer));
-    costumer.setMessage2(buffer);
-
-    uart_gets(buffer, sizeof(buffer));
-    costumer.setMessage3(buffer);
-
-    uart_gets(buffer, sizeof(buffer));
-    costumer.setPay(atoi(buffer));
-}
-
-int main(void)
-{
+int main(void){
+   // init_serial();
     HD44780 lcd;
-    uart_init();
 
     lcd.Initialize(); // Initialize the LCD
     lcd.Clear();      // Clear the LCD
 
-    Costumer Harry("CompanyName", "Message1", "Message2", "Message3", 5000);
+    Costumer Harry("CompanyName", "Privat", "Message2", "Message3", 4000);
+    char HarryPay[20];
+    sprintf(HarryPay, "%d", Harry.GetPay());
 
-    // Send initial data to serial port
-    sendCostumerData(Harry);
 
-    // Receive new data from serial port
-    receiveCostumerData(Harry);
+    //lcd.WriteText((char *)"Hej hej");
+    lcd.WriteText(HarryPay);
+    //lcd.WriteText(Harry.GetCompanyName());
+    //lcd.WriteText(Harry.GetMessage(0));
 
-    // Display updated data on LCD
-    lcd.WriteText(Harry.getMessage1());
+    //printf("%d", Harry.GetPay());
+    // int r = 12;
+    // printf("Hej 2 %d\n",r);
+    // // //Sätt till INPUT_PULLUP
+    // BIT_CLEAR(DDRB,BUTTON_PIN); // INPUT MODE
+    // BIT_SET(PORTB,BUTTON_PIN); 
 
-    while (1)
-    {
+    // DATA DIRECTION = avgör mode
+    // om output så skickar vi  1 eller 0 på motsvarande pinne på PORT
+    // om input så läser vi  1 eller 0 på motsvarande pinne på PIN
+    //bool blinking = false;
+    while(1){
     }
     return 0;
 }
