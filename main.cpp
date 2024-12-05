@@ -30,11 +30,23 @@ int main(void){
     lcd.Initialize(); // Initialize the LCD
     lcd.Clear();      // Clear the LCD
 
-    Costumer Harry("CompanyName", "Privat", "Message2", "Message3", 4000);
+    Costumer Harry("Hederlige Harrys Bilar", "Köp bil hos Harry", "En god bilaffär (för Harry!)", "Hederlige Harrys Bilar", 5000);
     char HarryPay[20];
     sprintf(HarryPay, "%d", Harry.GetPay());
 
+    Costumer Anka("Farmor Ankas Pajer AB", "Köp paj hos Farmor Anka", "Skynda innan Mårten ätit alla pajer", "Message3", 3000);
+    char AnkaPay[20];
+    sprintf(AnkaPay, "%d", Anka.GetPay());
 
+    Costumer Petter("Svarte Petters Svartbyggen", "Låt Petter bygga åt dig", "Bygga svart? Ring Petter", "Message3", 1500);
+    char PetterPay[20];
+    sprintf(PetterPay, "%d", Petter.GetPay());
+
+    Costumer LångBen("Långbens detektivbyrå", "Mysterier? Ring Långben", "Långben fixar biffen", "Message3", 4000);
+    char LångBenPay[20];
+    sprintf(LångBenPay, "%d", LångBen.GetPay());
+
+    //Costumer Harry("CompanyName", "Privat", "Message2", "Message3", 4000);
     //lcd.WriteText((char *)"Hej hej");
     lcd.WriteText(HarryPay);
     //lcd.WriteText(Harry.GetCompanyName());
