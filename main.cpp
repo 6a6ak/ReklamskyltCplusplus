@@ -3,6 +3,7 @@
 #include <avr/interrupt.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h> // Include for atoi
 #include "lcd.h"
 #include "uart.h"
 #include "Costumer.h"
@@ -22,29 +23,59 @@
 
 #define BUTTON_IS_CLICKED(PINB, BUTTON_PIN) !BIT_CHECK(PINB, BUTTON_PIN)
 
+void sendCostumerData(const Costumer& costumer) {
+    uart_puts("Company Name: ");
+    uart_puts(costumer.getCompanyName());
+    uart_puts("\nMessage 1: ");
+    uart_puts(costumer.getMessage1());
+    uart_puts("\nMessage 2: ");
+    uart_puts(costumer.getMessage2());
+    uart_puts("\nMessage 3: ");
+    uart_puts(costumer.getMessage3());
+    uart_puts("\nPay: ");
+    char payStr[10];
+    sprintf(payStr, "%d", costumer.getPay());
+    uart_puts(payStr);
+    uart_puts("\n");
+}
+
+void receiveCostumerData(Costumer& costumer) {
+    char buffer[100];
+    uart_gets(buffer, sizeof(buffer));
+    costumer.setCompanyName(buffer);
+
+    uart_gets(buffer, sizeof(buffer));
+    costumer.setMessage1(buffer);
+
+    uart_gets(buffer, sizeof(buffer));
+    costumer.setMessage2(buffer);
+
+    uart_gets(buffer, sizeof(buffer));
+    costumer.setMessage3(buffer);
+
+    uart_gets(buffer, sizeof(buffer));
+    costumer.setPay(atoi(buffer));
+}
+
 int main(void)
 {
-    // init_serial();
     HD44780 lcd;
+    uart_init();
 
     lcd.Initialize(); // Initialize the LCD
     lcd.Clear();      // Clear the LCD
 
     Costumer Harry("CompanyName", "Message1", "Message2", "Message3", 5000);
 
-    // lcd.WriteText((char *)"Hej hej");
-    lcd.WriteText(Harry.message1);
-    // printf("Hej hej\n");
-    // int r = 12;
-    // printf("Hej 2 %d\n",r);
-    // // //Sätt till INPUT_PULLUP
-    // BIT_CLEAR(DDRB,BUTTON_PIN); // INPUT MODE
-    // BIT_SET(PORTB,BUTTON_PIN);
+    // Send initial data to serial port
+    sendCostumerData(Harry);
 
-    // DATA DIRECTION = avgör mode
-    // om output så skickar vi  1 eller 0 på motsvarande pinne på PORT
-    // om input så läser vi  1 eller 0 på motsvarande pinne på PIN
-    // bool blinking = false;
+    // Receive new data from serial port
+    receiveCostumerData(Harry);
+
+    // Display updated data on LCD
+    lcd.WriteText(Harry.getMessage1());
+
     while (1)
     {
     }

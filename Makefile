@@ -11,11 +11,7 @@ LDFLAGS=-mmcu=$(MCU)
 PORT=\\\\.\\COM3
 BIN=avrdemo
 OUT=${BIN}.hex
-<<<<<<< HEAD
-SOURCES = main.cpp lcd.cpp uart.cpp
-=======
 SOURCES = main.cpp lcd.cpp uart.cpp Costumer.cpp
->>>>>>> origin/Abell
 
 DEBUG?=1
 

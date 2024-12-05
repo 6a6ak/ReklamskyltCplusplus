@@ -7,13 +7,8 @@
 #ifndef UART_H
 #define UART_H
 
-#include <stdio.h>
-
-int uart_putchar(char c, FILE *stream = NULL);
-int uart_getchar(FILE *sgtream=NULL);
-
 void uart_init(void);
-
-void init_serial();
+void uart_puts(const char *s);
+void uart_gets(char *s, int size);
 
 #endif

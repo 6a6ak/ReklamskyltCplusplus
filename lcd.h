@@ -51,7 +51,7 @@ public:
   HD44780();
   void WriteCommand(unsigned char cmd);
   void WriteData(unsigned char data);
-  void WriteText(char *text);
+  void WriteText(const char *text); // Change to accept const char*
   void GoTo(unsigned char x, unsigned char y);
   void Clear(void);
   void Home(void);

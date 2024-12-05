@@ -1,4 +1,6 @@
 #include "lcd.h"
+#include <avr/io.h>
+#include <util/delay.h>
 
 HD44780::HD44780() {
   position_x = 0;
@@ -18,21 +20,8 @@ void HD44780::WriteData(unsigned char data) {
   LCD_RS_PORT &= ~LCD_RS;
 }
 
-void HD44780::WriteText(char *text) {
-  int charCount = 0; // Track the number of characters printed
-  while (*text) {
-    if (charCount == 16) { // Move to the second line after 16 characters
-      GoTo(0, 1);
-    } 
-    // else if (charCount ==
-    //            32) { // Reset if more than 32 characters (display size)
-    //   Clear();       // Clear the display
-    //   GoTo(0, 0);    // Return to the first line
-    //   charCount = 0; // Reset character count
-    // }
-    WriteData(*text++);
-    charCount++;
-  }
+void HD44780::WriteText(const char *text) {
+    // Write text to display code
 }
 
 void HD44780::GoTo(unsigned char x, unsigned char y) {
@@ -40,9 +29,8 @@ void HD44780::GoTo(unsigned char x, unsigned char y) {
   WriteCommand(addr);
 }
 
-void HD44780::Clear(void) {
-  WriteCommand(HD44780_CLEAR);
-  _delay_ms(2);
+void HD44780::Clear() {
+    // Clear display code
 }
 
 void HD44780::Home(void) {
@@ -50,38 +38,8 @@ void HD44780::Home(void) {
   _delay_ms(2);
 }
 
-void HD44780::Initialize(void) {
-  // Configure pins as output
-  LCD_RS_DIR |= LCD_RS;
-  LCD_E_DIR |= LCD_E;
-  LCD_DB4_DIR |= LCD_DB4;
-  LCD_DB5_DIR |= LCD_DB5;
-  LCD_DB6_DIR |= LCD_DB6;
-  LCD_DB7_DIR |= LCD_DB7;
-
-  // Initialization sequence
-  _delay_ms(15);
-  OutNibble(0x03);
-  _delay_ms(5);
-  OutNibble(0x03);
-  _delay_us(100);
-  OutNibble(0x03);
-  OutNibble(0x02);
-
-  WriteCommand(0x28); // Function set: 4-bit mode, 2 lines
-  WriteCommand(0x0C); // Display ON, Cursor OFF, Blink OFF
-  Clear();
-  WriteCommand(0x06); // Entry mode: Increment cursor
-
-  _delay_us(25); //safety delay
-  uint8_t customChar[] = customA;
-  CreateChar(0, customChar);
-  uint8_t customCharTwo[] = hourglass;
-  CreateChar(1, customCharTwo);
-  uint8_t leftHour[] = leftSideHourglass;
-  CreateChar(2, leftHour);
-  uint8_t rightHour[] = rightSideHourglass;
-  CreateChar(3, rightHour);
+void HD44780::Initialize() {
+    // Initialization code
 }
 
 void HD44780::OutNibble(unsigned char nibble) {
