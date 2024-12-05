@@ -349,12 +349,13 @@ END GROUP
  .rodata        0x00800100       0x18 bin/debug/lcd.o
  *(.rodata*)
  .rodata.str1.1
-                0x00800118       0x30 bin/debug/main.o
-                                 0x27 (size before relaxing)
+                0x00800118       0x2f bin/debug/main.o
+                                 0x26 (size before relaxing)
  .rodata.str1.1
-                0x00800148        0x9 bin/debug/lcd.o
+                0x00800147        0x9 bin/debug/lcd.o
  *(.gnu.linkonce.r*)
-                0x00800152                        . = ALIGN (0x2)
+                0x00800150                        . = ALIGN (0x2)
+ *fill*         0x00800147        0x1 
                 0x00800148                        _edata = .
                 0x00800148                        PROVIDE (__data_end = .)
 
