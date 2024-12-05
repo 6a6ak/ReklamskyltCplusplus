@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "lcd.h"
 #include "uart.h"
-
+HEJ
 // https://wokwi.com/projects/416241646559459329
 
 // PORTB B (digital pin 8 to 13)
