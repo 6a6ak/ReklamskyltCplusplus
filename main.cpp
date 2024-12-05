@@ -30,13 +30,14 @@ int main(void){
     lcd.Initialize(); // Initialize the LCD
     lcd.Clear();      // Clear the LCD
 
-    Costumer Harry("CompanyName", "Message1", "Message2", "Message3", 5000);
-
+    Costumer Harry("CompanyName", "Privat", "Message2", "Message3", 5000);
+    char HarryPay[20];
+    sprintf(HarryPay, "%d", Harry.GetPay());
 
 
     //lcd.WriteText((char *)"Hej hej");
-    lcd.WriteText(Harry.messages[0]);
-    // printf("Hej hej\n");
+    lcd.WriteText(HarryPay);
+    //printf("%d", Harry.GetPay());
     // int r = 12;
     // printf("Hej 2 %d\n",r);
     // // //Sätt till INPUT_PULLUP
