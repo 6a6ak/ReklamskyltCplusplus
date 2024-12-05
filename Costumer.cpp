@@ -14,9 +14,9 @@ char* Costumer::GetCompanyName() {
     return companyname;
 }
 
-char* Costumer::GetMessage(int index) {
-    if (index >= 0 && index < 3) {
-        return messages[index];
+char* Costumer::GetMessage(int i) {
+    if (i >= 0 && i < 3) {
+        return messages[i];
     }
     return "";
 }

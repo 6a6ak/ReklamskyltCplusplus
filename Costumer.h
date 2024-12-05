@@ -9,7 +9,7 @@ class Costumer{
 
  public:
  Costumer(char *companyname, char *message1, char *message2, char *message3, int pay);
- char* GetMessage(int index);
+ char* GetMessage(int i);
  char* GetCompanyName();
  int GetPay();
 };
