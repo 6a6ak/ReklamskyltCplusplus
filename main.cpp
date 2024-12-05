@@ -17,6 +17,10 @@
 
 #define BUTTON_IS_CLICKED(PINB, BUTTON_PIN) !BIT_CHECK(PINB, BUTTON_PIN)
 
+// https://wokwi.com/projects/416241646559459329
+
+
+
 // Function to display customer information on the LCD
 void DisplayCostumerInfo(HD44780 *lcd, Costumer *customer)
 {
