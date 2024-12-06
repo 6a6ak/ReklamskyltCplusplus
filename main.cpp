@@ -49,7 +49,7 @@ int main(void){
 
 while (1) {
     int Random = rand() % 136;
-    int RND = rand() % 3;
+    int RND = rand() % 4;
     printf("Random: %d, RND: %d\n", Random, RND);
 
     if (Random <= 50) {
