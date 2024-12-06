@@ -1,7 +1,6 @@
 #include "utilities.h"
 
-// Define the global random seed variable
-unsigned int randomSeed = 12345;
+unsigned int randomSeed = 12345; // Global random seed
 
 // Pseudo-random number generator function
 int pseudoRandom() {

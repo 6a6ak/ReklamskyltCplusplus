@@ -1,18 +1,18 @@
 #ifndef CUSTOMERS_H
 #define CUSTOMERS_H
 
-#include "utilities.h"
-
 class Customer {
 private:
-    const char* name;
-    int payment;
-    char messages[3][50]; // Remove `const` here to allow initialization in the constructor
-    int messageCount;
+    char name[50]; // Name is now mutable, stored as a character array
+    int payment;   // Payment amount
+    char messages[3][50]; // Array of customer messages
+    int messageCount;     // Number of messages
 
 public:
-    Customer(const char* name, int payment, const char messages[][50], int messageCount);
+    // Constructor
+    Customer(const char* customerName, int customerPayment, const char customerMessages[][50], int messageCount);
 
+    // Getters
     const char* getName() const;
     int getPayment() const;
     int getMessageCount() const;
