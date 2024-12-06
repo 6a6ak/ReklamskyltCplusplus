@@ -1,53 +1,24 @@
 #ifndef CUSTOMERS_H
 #define CUSTOMERS_H
 
-#include <stdlib.h> // Use C-style stdlib.h for rand()
+#include "utilities.h"
 
 class Customer {
 private:
     const char* name;
-    int payment;               // Customer's payment amount
-    const char (*messages)[50]; // Array of customer messages
-    int messageCount;          // Number of messages
+    int payment;
+    char messages[3][50]; // Remove `const` here to allow initialization in the constructor
+    int messageCount;
 
 public:
-    // Constructor
-    Customer(const char* name, int payment, const char (*messages)[50], int messageCount)
-        : name(name), payment(payment), messages(messages), messageCount(messageCount) {}
+    Customer(const char* name, int payment, const char messages[][50], int messageCount);
 
-    // Getter for customer name
-    const char* getName() const {
-        return name;
-    }
-
-    // Getter for customer payment
-    int getPayment() const {
-        return payment;
-    }
-
-    // Getter for message count
-    int getMessageCount() const {
-        return messageCount;
-    }
-
-    // Getter for a specific message by index
-    const char* getMessage(int index) const {
-        if (index >= 0 && index < messageCount) {
-            return messages[index];
-        }
-        return nullptr; // Return null if index is invalid
-    }
-
-    // Function to get a random message
-    const char* getRandomMessage() const {
-        int randomIndex = rand() % messageCount;
-        return getMessage(randomIndex);
-    }
-
-    // Function to calculate display weight
-    int getDisplayWeight() const {
-        return payment / 1000; // Weight proportional to payment
-    }
+    const char* getName() const;
+    int getPayment() const;
+    int getMessageCount() const;
+    const char* getMessage(int index) const;
+    const char* getRandomMessage() const;
+    int getDisplayWeight() const;
 };
 
 #endif

@@ -1,46 +1,39 @@
-#ifndef CUSTOMERS_H
-#define CUSTOMERS_H
+#include "customers.h"
 
-#include "utilities.h"  // Include utilities.h for pseudoRandom()
-
-class Customer {
-private:
-    const char* name;
-    int payment;
-    const char (*messages)[50];
-    int messageCount;
-
-public:
-    Customer(const char* name, int payment, const char (*messages)[50], int messageCount)
-        : name(name), payment(payment), messages(messages), messageCount(messageCount) {}
-
-    const char* getName() const {
-        return name;
-    }
-
-    int getPayment() const {
-        return payment;
-    }
-
-    int getMessageCount() const {
-        return messageCount;
-    }
-
-    const char* getMessage(int index) const {
-        if (index >= 0 && index < messageCount) {
-            return messages[index];
+// Constructor definition
+Customer::Customer(const char* name, int payment, const char messages[][50], int messageCount)
+    : name(name), payment(payment), messageCount(messageCount) {
+    for (int i = 0; i < messageCount && i < 3; ++i) {
+        // Copy strings manually
+        for (int j = 0; j < 50; ++j) {
+            this->messages[i][j] = messages[i][j];
+            if (messages[i][j] == '\0') break; // Stop copying at null terminator
         }
-        return nullptr;
+        this->messages[i][49] = '\0'; // Ensure null termination
     }
+}
 
-    const char* getRandomMessage() const {
-        int randomIndex = pseudoRandom() % messageCount; // Use pseudoRandom()
-        return getMessage(randomIndex);
-    }
+const char* Customer::getName() const {
+    return name;
+}
 
-    int getDisplayWeight() const {
-        return payment / 1000;
-    }
-};
+int Customer::getPayment() const {
+    return payment;
+}
 
-#endif
+int Customer::getMessageCount() const {
+    return messageCount;
+}
+
+const char* Customer::getMessage(int index) const {
+    return (index >= 0 && index < messageCount) ? messages[index] : nullptr;
+}
+
+const char* Customer::getRandomMessage() const {
+    int randomIndex = pseudoRandom() % messageCount;
+    return getMessage(randomIndex);
+}
+
+int Customer::getDisplayWeight() const {
+    return payment / 1000;
+}
