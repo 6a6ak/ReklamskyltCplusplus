@@ -30,61 +30,71 @@ int main(void){
     lcd.Initialize();
     lcd.Clear();
 
-    // Hederlige Harrys Bilar 5000
+    // Hederlige Harrys Bilar 5000 1
     Costumer Harry("Kop bil hos Harry", "En god bilaffar (for Harry!)", "Hederlige Harrys Bilar");
 
-    //Långbens detektivbyrå 4000
+    //Långbens detektivbyrå 4000 2
     Costumer LångBen("Mysterier? Ring Langben", "Langben fixar biffen", "Message3");
   
-    // Farmor Ankas Pajer AB 3000
+    // Farmor Ankas Pajer AB 3000 3
     Costumer Anka("Kop paj hos Farmor Anka", "Skynda innan Marten atit alla pajer", "Message3");
 
-    //Svarte Petters Svartbyggen 1500
+    //Svarte Petters Svartbyggen 1500 4
     Costumer Petter("Lat Petter bygga at dig", "Bygga svart? Ring Petter", "Message3");
 
 
     // GetCompanyName(), GetMessage(0,1,2)
     // lcd.WriteText(Harry.GetCompanyName());
 
+    while (1) {
+            
+            int Random = rand() % 136;
+            int RND = rand() % 4;
+            int CurrentCostumer;
+            if (Random <= 50) {
+                CurrentCostumer = 1; // Harry
+            } else if (Random > 50 && Random <= 90) {
+                CurrentCostumer = 2; // LångBen
+            } else if (Random > 90 && Random <= 110) {
+                CurrentCostumer = 3; // Anka
+            } else {
+                CurrentCostumer = 4; // Petter
+            }
 
-while (1) {
-    int Random = rand() % 136;
-    int RND = rand() % 4;
-    printf("Random: %d, RND: %d\n", Random, RND);
-
-    if (Random <= 50) {
-        switch (RND) {
-            case 0:
-            case 1:
-                lcd.WriteText(Harry.GetMessage(0));
-                break;
-            case 2:
-                lcd.WriteText(Harry.GetMessage(1));
-                break;
-            case 3:
-                lcd.WriteText(Harry.GetMessage(2));
-                break;
+        printf("Random: %d, RND: %d, CurrentCostumer: %d\n", Random, RND, CurrentCostumer);
+        if (CurrentCostumer == 1) {
+            switch (RND) {
+                case 0:
+                case 1:
+                    lcd.WriteText(Harry.GetMessage(0));
+                    break;
+                case 2:
+                    lcd.WriteText(Harry.GetMessage(1));
+                    break;
+                case 3:
+                    lcd.WriteText(Harry.GetMessage(2));
+                    break;
+            }
+        } else if (CurrentCostumer == 2) {
+            lcd.WriteText(LångBen.GetMessage(0));
+        } else if (CurrentCostumer == 3) {
+            switch (RND) {
+                case 0:
+                case 1:
+                    lcd.WriteText(Anka.GetMessage(0));
+                    break;
+                case 2:
+                case 3:
+                    lcd.WriteText(Anka.GetMessage(1));
+                    break;
+            }
+        } else if (CurrentCostumer == 4) {
+            lcd.WriteText(Petter.GetMessage(0));
         }
-    } else if (Random > 50 && Random <= 90) {
-        lcd.WriteText(LångBen.GetMessage(0));
-    } else if (Random > 90 && Random <= 110) {
-        switch (RND) {
-            case 0:
-            case 1:
-                lcd.WriteText(Anka.GetMessage(0));
-                break;
-            case 2:
-            case 3:
-                lcd.WriteText(Anka.GetMessage(1));
-                break;
-        }
-    } else {
-        lcd.WriteText(Petter.GetMessage(0));
+        _delay_ms(5000);
+        lcd.Clear();
     }
 
-    _delay_ms(5000);
-    lcd.Clear();
-}
 
 
     return 0;
