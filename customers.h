@@ -16,6 +16,7 @@ public:
     const char* getName() const;
     int getPayment() const;
     const char* getRandomMessage() const;
+    int getDisplayWeight() const;
 };
 
 #endif // CUSTOMERS_H_

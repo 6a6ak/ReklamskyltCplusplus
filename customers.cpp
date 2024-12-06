@@ -1,6 +1,5 @@
 #include "customers.h"
 #include <string.h> // For strncpy
-#include <stdlib.h> // For rand()
 
 Customer::Customer(const char* name, int payment, const char msgArray[][50], int msgCount)
     : payment(payment), messageCount(msgCount) {
@@ -23,6 +22,10 @@ int Customer::getPayment() const {
 
 const char* Customer::getRandomMessage() const {
     if (messageCount == 0) return "No messages available.";
-    int index = rand() % messageCount;
+    int index = payment % messageCount; // Lightweight random logic
     return messages[index];
+}
+
+int Customer::getDisplayWeight() const {
+    return payment / 1000; // Example: 5000 payment = weight 5
 }
