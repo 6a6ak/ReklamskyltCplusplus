@@ -1,16 +1,37 @@
 #include "lcd.h"
 #include "customers.h"
-#include "uart.h"  // Add UART header
+#include "uart.h"
 #include <avr/io.h>
 #include <util/delay.h>
-#include <stdio.h> // For printf
+#include <stdlib.h> // For rand() and srand()
+#include <stdio.h>
 
-// Simple pseudo-random number generator
-unsigned int randomSeed = 12345;
+// Custom delay function for variable delays
+void custom_delay_ms(int delayMs) {
+    while (delayMs > 0) {
+        if (delayMs >= 10) {
+            _delay_ms(10); // Delay in chunks of 10ms
+            delayMs -= 10;
+        } else {
+            _delay_ms(1); // Delay the remaining milliseconds
+            delayMs--;
+        }
+    }
+}
 
-int pseudoRandom() {
-    randomSeed = (randomSeed * 1103515245 + 12345) & 0x7FFF;
-    return randomSeed;
+// Display all messages for each customer at least once
+void displayAllMessages(HD44780& lcd, Customer* customers[], int customerCount) {
+    for (int i = 0; i < customerCount; ++i) {
+        Customer* currentCustomer = customers[i];
+        int messageCount = currentCustomer->getMessageCount();
+        for (int j = 0; j < messageCount; ++j) {
+            const char* message = currentCustomer->getMessage(j);
+            lcd.Clear();
+            lcd.WriteText((char*)message);
+            printf("Customer: %s, Message: %s, Display Time: 20 seconds\n", currentCustomer->getName(), message);
+            custom_delay_ms(2000); // Display each message for 2 seconds
+        }
+    }
 }
 
 // Function to select the next customer based on weights
@@ -24,7 +45,7 @@ Customer* selectCustomer(Customer* customers[], int customerCount, Customer* las
 
     Customer* selectedCustomer = nullptr;
     while (selectedCustomer == nullptr || selectedCustomer == lastCustomer) {
-        int randomWeight = pseudoRandom() % totalWeight;
+        int randomWeight = rand() % totalWeight; // Use rand() from stdlib.h
         for (int i = 0; i < customerCount; ++i) {
             randomWeight -= customers[i]->getDisplayWeight();
             if (randomWeight < 0) {
@@ -37,13 +58,16 @@ Customer* selectCustomer(Customer* customers[], int customerCount, Customer* las
 }
 
 int main(void) {
+    // Seed the random number generator
+    srand(12345); // You can replace 12345 with dynamic seeds like time-based values
+
     // Initialize the LCD
     HD44780 lcd;
     lcd.Initialize();
     lcd.Clear();
 
     // Initialize UART for debugging
-    init_serial(); 
+    init_serial();
     printf("UART Initialized. Starting program...\n");
 
     // Define customers and their messages
@@ -70,32 +94,36 @@ int main(void) {
     Customer* customers[] = {&harry, &anka, &petter};
     int customerCount = sizeof(customers) / sizeof(customers[0]);
 
-    // Last displayed customer
+    // **Step 1: Ensure all messages are displayed once**
+    printf("Starting first round: Displaying all messages for each customer...\n");
+    displayAllMessages(lcd, customers, customerCount);
+
+    // **Step 2: Display messages dynamically based on payment weight**
+    printf("Starting second round: Dynamic message display...\n");
     Customer* lastCustomer = nullptr;
 
-    // Display messages dynamically
     while (1) {
         // Select a customer based on payment weight
         Customer* selectedCustomer = selectCustomer(customers, customerCount, lastCustomer);
         lastCustomer = selectedCustomer;
 
         // Log selected customer and message
+        const char* selectedMessage = selectedCustomer->getRandomMessage();
         printf("Selected Customer: %s\n", selectedCustomer->getName());
-        printf("Message: %s\n", selectedCustomer->getRandomMessage());
+        printf("Message: %s\n", selectedMessage);
 
-        // Display a random message from the selected customer
+        // Display the selected message on the LCD
         lcd.Clear();
-        lcd.WriteText((char*)selectedCustomer->getRandomMessage());
+        lcd.WriteText((char*)selectedMessage);
 
-        // Calculate delay time based on payment (e.g., 1 second per 1000 payment)
-        int delayTime = selectedCustomer->getPayment() / 1000; // Delay in seconds
-        printf("Delay Time: %d seconds\n", delayTime);
+        // Calculate total delay in milliseconds
+        int totalDelayMs = selectedCustomer->getPayment(); // Delay based on payment amount
+        printf("Delay Time: %d ms\n", totalDelayMs);
 
-        // Apply delay and log each second
-        for (int i = 0; i < delayTime; ++i) {
-            _delay_ms(1000);
-            printf("Delay second: %d\n", i + 1);
-        }
+        // Apply the custom delay
+        custom_delay_ms(totalDelayMs);
+
+        printf("Delay completed for customer: %s\n", selectedCustomer->getName());
     }
 
     return 0;

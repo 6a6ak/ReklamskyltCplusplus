@@ -1,31 +1,46 @@
-#include "customers.h"
-#include <string.h> // For strncpy
+#ifndef CUSTOMERS_H
+#define CUSTOMERS_H
 
-Customer::Customer(const char* name, int payment, const char msgArray[][50], int msgCount)
-    : payment(payment), messageCount(msgCount) {
-    strncpy(this->name, name, sizeof(this->name) - 1);
-    this->name[sizeof(this->name) - 1] = '\0'; // Ensure null termination
+#include "utilities.h"  // Include utilities.h for pseudoRandom()
 
-    for (int i = 0; i < msgCount && i < MAX_MESSAGES; ++i) {
-        strncpy(this->messages[i], msgArray[i], sizeof(this->messages[i]) - 1);
-        this->messages[i][sizeof(this->messages[i]) - 1] = '\0'; // Ensure null termination
+class Customer {
+private:
+    const char* name;
+    int payment;
+    const char (*messages)[50];
+    int messageCount;
+
+public:
+    Customer(const char* name, int payment, const char (*messages)[50], int messageCount)
+        : name(name), payment(payment), messages(messages), messageCount(messageCount) {}
+
+    const char* getName() const {
+        return name;
     }
-}
 
-const char* Customer::getName() const {
-    return name;
-}
+    int getPayment() const {
+        return payment;
+    }
 
-int Customer::getPayment() const {
-    return payment;
-}
+    int getMessageCount() const {
+        return messageCount;
+    }
 
-const char* Customer::getRandomMessage() const {
-    if (messageCount == 0) return "No messages available.";
-    int index = payment % messageCount; // Lightweight random logic
-    return messages[index];
-}
+    const char* getMessage(int index) const {
+        if (index >= 0 && index < messageCount) {
+            return messages[index];
+        }
+        return nullptr;
+    }
 
-int Customer::getDisplayWeight() const {
-    return payment / 1000; // Example: 5000 payment = weight 5
-}
+    const char* getRandomMessage() const {
+        int randomIndex = pseudoRandom() % messageCount; // Use pseudoRandom()
+        return getMessage(randomIndex);
+    }
+
+    int getDisplayWeight() const {
+        return payment / 1000;
+    }
+};
+
+#endif
