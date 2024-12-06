@@ -6,64 +6,86 @@
 #include "lcd.h"
 #include "uart.h"
 #include "Costumer.h"
+#include <stdlib.h>
 
-// https://wokwi.com/projects/416241646559459329
 
-// PORTB B (digital pin 8 to 13)
-// C (analog input pins)
-// PORTD D (digital pins 0 to 7)
+
 #define LED_PIN 2
 #define BUTTON_PIN 1
-
 #define BIT_SET(a, b) ((a) |= (1ULL << (b)))
 #define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
 #define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
 #define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) 
-
-
 #define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
 
+// https://wokwi.com/projects/416241646559459329
+
+
+
+
 int main(void){
-   // init_serial();
+    init_serial(); 
     HD44780 lcd;
 
-    lcd.Initialize(); // Initialize the LCD
-    lcd.Clear();      // Clear the LCD
+    lcd.Initialize();
+    lcd.Clear();
 
-    Costumer Harry("Hederlige Harrys Bilar", "Köp bil hos Harry", "En god bilaffär (för Harry!)", "Hederlige Harrys Bilar", 5000);
-    char HarryPay[20];
-    sprintf(HarryPay, "%d", Harry.GetPay());
+    // Hederlige Harrys Bilar 5000
+    Costumer Harry("Kop bil hos Harry", "En god bilaffar (for Harry!)", "Hederlige Harrys Bilar");
 
-    Costumer Anka("Farmor Ankas Pajer AB", "Köp paj hos Farmor Anka", "Skynda innan Mårten ätit alla pajer", "Message3", 3000);
-    char AnkaPay[20];
-    sprintf(AnkaPay, "%d", Anka.GetPay());
+    //Långbens detektivbyrå 4000
+    Costumer LångBen("Mysterier? Ring Langben", "Langben fixar biffen", "Message3");
+  
+    // Farmor Ankas Pajer AB 3000
+    Costumer Anka("Kop paj hos Farmor Anka", "Skynda innan Marten atit alla pajer", "Message3");
 
-    Costumer Petter("Svarte Petters Svartbyggen", "Låt Petter bygga åt dig", "Bygga svart? Ring Petter", "Message3", 1500);
-    char PetterPay[20];
-    sprintf(PetterPay, "%d", Petter.GetPay());
+    //Svarte Petters Svartbyggen 1500
+    Costumer Petter("Lat Petter bygga at dig", "Bygga svart? Ring Petter", "Message3");
 
-    Costumer LångBen("Långbens detektivbyrå", "Mysterier? Ring Långben", "Långben fixar biffen", "Message3", 4000);
-    char LångBenPay[20];
-    sprintf(LångBenPay, "%d", LångBen.GetPay());
 
-    //Costumer Harry("CompanyName", "Privat", "Message2", "Message3", 4000);
-    //lcd.WriteText((char *)"Hej hej");
-    lcd.WriteText(HarryPay);
-    //lcd.WriteText(Harry.GetCompanyName());
-    //lcd.WriteText(Harry.GetMessage(0));
+    // GetCompanyName(), GetMessage(0,1,2)
+    // lcd.WriteText(Harry.GetCompanyName());
 
-    //printf("%d", Harry.GetPay());
-    // int r = 12;
-    // printf("Hej 2 %d\n",r);
-    // // //Sätt till INPUT_PULLUP
-    // BIT_CLEAR(DDRB,BUTTON_PIN); // INPUT MODE
-    // BIT_SET(PORTB,BUTTON_PIN); 
 
-    // DATA DIRECTION = avgör mode
-    // om output så skickar vi  1 eller 0 på motsvarande pinne på PORT
-    // om input så läser vi  1 eller 0 på motsvarande pinne på PIN
-    //bool blinking = false;
-    while(1){
+while (1) {
+    int Random = rand() % 136;
+    int RND = rand() % 3;
+    printf("Random: %d, RND: %d\n", Random, RND);
+
+    if (Random <= 50) {
+        switch (RND) {
+            case 0:
+            case 1:
+                lcd.WriteText(Harry.GetMessage(0));
+                break;
+            case 2:
+                lcd.WriteText(Harry.GetMessage(1));
+                break;
+            case 3:
+                lcd.WriteText(Harry.GetMessage(2));
+                break;
+        }
+    } else if (Random > 50 && Random <= 90) {
+        lcd.WriteText(LångBen.GetMessage(0));
+    } else if (Random > 90 && Random <= 110) {
+        switch (RND) {
+            case 0:
+            case 1:
+                lcd.WriteText(Anka.GetMessage(0));
+                break;
+            case 2:
+            case 3:
+                lcd.WriteText(Anka.GetMessage(1));
+                break;
+        }
+    } else {
+        lcd.WriteText(Petter.GetMessage(0));
     }
+
+    _delay_ms(5000);
+    lcd.Clear();
+}
+
+
     return 0;
 }

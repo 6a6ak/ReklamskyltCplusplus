@@ -3,15 +3,12 @@
 
 class Costumer{
  private:
- char companyname[100];
  char messages[3][100];
- int pay;
 
  public:
- Costumer(char *companyname, char *message1, char *message2, char *message3, int pay);
+ Costumer(char *message1, char *message2, char *message3);
  char* GetMessage(int i);
- char* GetCompanyName();
- int GetPay();
+
 };
 
 

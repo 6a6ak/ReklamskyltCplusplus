@@ -6,6 +6,7 @@ HD44780::HD44780() {
   Initialize();
 }
 
+
 void HD44780::WriteCommand(unsigned char cmd) {
   OutNibble(cmd >> 4);
   OutNibble(cmd);
