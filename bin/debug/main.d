@@ -8,4 +8,5 @@ bin/debug/main.o: main.cpp lcd.h C:/avr/avr/include/avr/io.h \
  C:/avr/lib/gcc/avr/14.1.0/include/stddef.h \
  C:/avr/avr/include/util/delay.h C:/avr/avr/include/util/delay_basic.h \
  customers.h C:/avr/avr/include/stdlib.h uart.h \
- C:/avr/avr/include/stdio.h C:/avr/lib/gcc/avr/14.1.0/include/stdarg.h
+ C:/avr/avr/include/stdio.h C:/avr/lib/gcc/avr/14.1.0/include/stdarg.h \
+ utilities.h

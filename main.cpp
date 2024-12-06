@@ -1,10 +1,11 @@
 #include "lcd.h"
 #include "customers.h"
 #include "uart.h"
+#include "utilities.h"  // Include for pseudoRandom
 #include <avr/io.h>
 #include <util/delay.h>
-#include <stdlib.h> // For rand() and srand()
 #include <stdio.h>
+#include <stdlib.h>
 
 // Custom delay function for variable delays
 void custom_delay_ms(int delayMs) {
@@ -15,21 +16,6 @@ void custom_delay_ms(int delayMs) {
         } else {
             _delay_ms(1); // Delay the remaining milliseconds
             delayMs--;
-        }
-    }
-}
-
-// Display all messages for each customer at least once
-void displayAllMessages(HD44780& lcd, Customer* customers[], int customerCount) {
-    for (int i = 0; i < customerCount; ++i) {
-        Customer* currentCustomer = customers[i];
-        int messageCount = currentCustomer->getMessageCount();
-        for (int j = 0; j < messageCount; ++j) {
-            const char* message = currentCustomer->getMessage(j);
-            lcd.Clear();
-            lcd.WriteText((char*)message);
-            printf("Customer: %s, Message: %s, Display Time: 20 seconds\n", currentCustomer->getName(), message);
-            custom_delay_ms(2000); // Display each message for 2 seconds
         }
     }
 }
@@ -45,7 +31,7 @@ Customer* selectCustomer(Customer* customers[], int customerCount, Customer* las
 
     Customer* selectedCustomer = nullptr;
     while (selectedCustomer == nullptr || selectedCustomer == lastCustomer) {
-        int randomWeight = rand() % totalWeight; // Use rand() from stdlib.h
+        int randomWeight = pseudoRandom() % totalWeight;
         for (int i = 0; i < customerCount; ++i) {
             randomWeight -= customers[i]->getDisplayWeight();
             if (randomWeight < 0) {
@@ -57,9 +43,18 @@ Customer* selectCustomer(Customer* customers[], int customerCount, Customer* las
     return selectedCustomer;
 }
 
+// Function to select a message for a customer ensuring no consecutive repeats
+const char* selectMessage(Customer* customer, const char* lastMessage) {
+    const char* selectedMessage = nullptr;
+    while (selectedMessage == nullptr || selectedMessage == lastMessage) {
+        selectedMessage = customer->getRandomMessage();
+    }
+    return selectedMessage;
+}
+
 int main(void) {
     // Seed the random number generator
-    srand(12345); // You can replace 12345 with dynamic seeds like time-based values
+    srand(12345); // Replace with a dynamic seed if desired
 
     // Initialize the LCD
     HD44780 lcd;
@@ -90,40 +85,46 @@ int main(void) {
     };
     Customer petter("Petter", 1500, petterMessages, 2);
 
+    const char nackademinMessages[][50] = {
+        "   NackademiN"
+    };
+    Customer nackademin("Nackademin", 2000, nackademinMessages, 1); // Add Nackademin with payment and message
+
     // Create an array of customers
-    Customer* customers[] = {&harry, &anka, &petter};
+    Customer* customers[] = {&harry, &anka, &petter, &nackademin}; // Add Nackademin to the array
     int customerCount = sizeof(customers) / sizeof(customers[0]);
 
-    // **Step 1: Ensure all messages are displayed once**
-    printf("Starting first round: Displaying all messages for each customer...\n");
-    displayAllMessages(lcd, customers, customerCount);
-
-    // **Step 2: Display messages dynamically based on payment weight**
-    printf("Starting second round: Dynamic message display...\n");
+    // Track last displayed customer and messages
     Customer* lastCustomer = nullptr;
+    const char* lastMessage = nullptr;
 
+    // Dynamic message display
     while (1) {
         // Select a customer based on payment weight
         Customer* selectedCustomer = selectCustomer(customers, customerCount, lastCustomer);
         lastCustomer = selectedCustomer;
 
-        // Log selected customer and message
-        const char* selectedMessage = selectedCustomer->getRandomMessage();
+        // Select a message for the customer ensuring no consecutive repeats
+        const char* selectedMessage = selectMessage(selectedCustomer, lastMessage);
+        lastMessage = selectedMessage;
+
+        // Calculate the weight value of the selected customer
+        int customerWeight = selectedCustomer->getDisplayWeight();
+
+        // Log selected customer, message, and weight on the terminal
         printf("Selected Customer: %s\n", selectedCustomer->getName());
         printf("Message: %s\n", selectedMessage);
+        printf("Weight Value: %d\n", customerWeight);
 
         // Display the selected message on the LCD
         lcd.Clear();
         lcd.WriteText((char*)selectedMessage);
 
-        // Calculate total delay in milliseconds
-        int totalDelayMs = selectedCustomer->getPayment(); // Delay based on payment amount
-        printf("Delay Time: %d ms\n", totalDelayMs);
+        // Fixed display time for all messages (20 seconds)
+        printf("Displaying message for 20 seconds...\n");
+        custom_delay_ms(2000);
 
-        // Apply the custom delay
-        custom_delay_ms(totalDelayMs);
-
-        printf("Delay completed for customer: %s\n", selectedCustomer->getName());
+        printf("Message displayed successfully.\n");
     }
 
     return 0;
