@@ -1,7 +1,7 @@
 #include "utilities.h"
 #include <avr/io.h>  // For register access
 
-unsigned int randomSeed = 0; // Global random seed
+unsigned int randomSeed = 7; // Global random seed
 
 // Function to initialize the ADC and read analog value from a specific pin
 unsigned int readAnalog(uint8_t pin) {
@@ -16,15 +16,11 @@ unsigned int readAnalog(uint8_t pin) {
 
 // Function to initialize random seed using analog pin
 void initializeRandomSeed() {
-    unsigned int analogSeed = readAnalog(0); // Read from ADC pin 0
-    unsigned int timingSeed = TCNT1;         // Read Timer1 value
-
-    // Combine the two sources for randomness
-    randomSeed = (analogSeed ^ timingSeed) & 0x7FFF; // XOR and limit to 15 bits
+    randomSeed = readAnalog(0); // Directly set randomSeed with the value from A0
 }
 
 // Pseudo-random number generator function
 int pseudoRandom() {
-    randomSeed = (randomSeed * 1103515245 + randomSeed) & 0x7FFF;
+    randomSeed = (randomSeed * 1103515245 + randomSeed) & 0x7FFF; // Generate next pseudo-random number
     return randomSeed;
 }
