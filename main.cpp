@@ -3,47 +3,71 @@
 #include <avr/interrupt.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h> 
+#include <string.h> 
 #include "lcd.h"
 #include "uart.h"
 
-// https://wokwi.com/projects/416241646559459329
+#define MAX_CUSTOMERS 5
 
-// PORTB B (digital pin 8 to 13)
-// C (analog input pins)
-// PORTD D (digital pins 0 to 7)
-#define LED_PIN 2
-#define BUTTON_PIN 1
+struct Customer {
+    char name[50];
+    int amountPaid;
+    char messages[3][100];
+};
 
-#define BIT_SET(a, b) ((a) |= (1ULL << (b)))
-#define BIT_CLEAR(a,b) ((a) &= ~(1ULL<<(b)))
-#define BIT_FLIP(a,b) ((a) ^= (1ULL<<(b)))
-#define BIT_CHECK(a,b) (!!((a) & (1ULL<<(b)))) 
+int chooseCustomer(Customer customers[], int customerCount, int lastCustomer);
+void showAd(HD44780& lcd, Customer* customer);
 
-
-#define BUTTON_IS_CLICKED(PINB,BUTTON_PIN) !BIT_CHECK(PINB,BUTTON_PIN)
-
- 
-
-int main(void){
+int main(void) {
     init_serial();
     HD44780 lcd;
+    lcd.Initialize(); 
+    lcd.Clear();      
 
-    lcd.Initialize(); // Initialize the LCD
-    lcd.Clear();      // Clear the LCD
+    srand(time(0)); 
 
-    lcd.WriteText((char *)"Hej hej");
-    printf("Hej hej\n");
-    int r = 12;
-    printf("Hej 2 %d\n",r);
-    // // //Sätt till INPUT_PULLUP
-    // BIT_CLEAR(DDRB,BUTTON_PIN); // INPUT MODE
-    // BIT_SET(PORTB,BUTTON_PIN); 
+    Customer customers[MAX_CUSTOMERS] = {
+        {"Hederlige Harrys Bilar", 1500, {"Köp bil hos Harry", "En god bilaffär (för Harry!)", "Hederlige Harrys Bilar"}},
+        {"Farmor Ankas Pajer AB", 3000, {"Köp paj hos Farmor Anka", "Skynda innan Mårten ätit alla pajer"}},
+        {"Svarte Petters Svartbyggen", 1500, {"Låt Petter bygga åt dig", "Bygga svart? Ring Petter"}},
+        {"Långbens Detektivbyrå", 4000, {"Mysterier? Ring Långben", "Långben fixar biffen"}},
+        {"IOT:s Reklambyrå", 1000, {"Synas här? IOT:s Reklambyrå"}}
+    };
 
-    // DATA DIRECTION = avgör mode
-    // om output så skickar vi  1 eller 0 på motsvarande pinne på PORT
-    // om input så läser vi  1 eller 0 på motsvarande pinne på PIN
-    //bool blinking = false;
-    while(1){
+    int customerCount = MAX_CUSTOMERS;
+    int lastCustomer = -1;
+
+    lcd.WriteText((char *)"Reklamskylt startar...");
+    _delay_ms(2000); 
+
+    while (true) {
+        int chosenCustomer = chooseCustomer(customers, customerCount, lastCustomer);
+        if (chosenCustomer != -1) {
+            showAd(lcd, &customers[chosenCustomer]);
+            lastCustomer = chosenCustomer;
+        }
+        _delay_ms(20000); 
     }
+
     return 0;
+}
+
+int chooseCustomer(Customer customers[], int customerCount, int lastCustomer) {
+    int chosenCustomer;
+    do {
+        chosenCustomer = rand() % customerCount;
+    } while (chosenCustomer == lastCustomer);
+    return chosenCustomer;
+}
+
+void showAd(HD44780& lcd, Customer* customer) {
+    lcd.Clear();
+    for (int i = 0; i < 3; i++) {
+        if (strlen(customer->messages[i]) > 0) {
+            lcd.WriteText((char *)customer->messages[i]);
+            _delay_ms(5000); 
+            lcd.Clear();
+        }
+    }
 }
