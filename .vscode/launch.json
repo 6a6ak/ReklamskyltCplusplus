@@ -8,8 +8,13 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
+<<<<<<< HEAD
       "cwd": "d:/Codes/git/NackademiN/LCD_Ads",
       "program": "d:/Codes/git/NackademiN/LCD_Ads/build/Debug/outDebug",
+=======
+      "cwd": "d:/Codes/Git/ReklamskyltCplusplus",
+      "program": "d:/Codes/Git/ReklamskyltCplusplus/build/Debug/outDebug",
+>>>>>>> fa46c9aece16cb6cbdcb2b7736ebb8142e74d190
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
