@@ -33,6 +33,10 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/settings.json
+<<<<<<< HEAD
 .vscode/settings.json
 *.json
 .gitignore
+=======
+*.json
+>>>>>>> Release
