@@ -29,9 +29,13 @@ void shuffleCustomers(Customer* customers[], int count) {
     }
 }
 
+
+
+
 int main() {
     // Seed the random number generator
-    randomSeed = 12345;
+    initializeRandomSeed();
+    // randomSeed = 12345;
 
     // Initialize the LCD
     HD44780 lcd;
@@ -76,6 +80,10 @@ int main() {
         // Log end of round
         printf("Completed one round of displaying all ads.\n");
     }
+
+
+int randomValue = pseudoRandom();
+    printf("Random value: %d\n", randomValue);
 
     return 0;
 }
