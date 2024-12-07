@@ -487,7 +487,7 @@ END GROUP
  *(.jumptables*)
                 0x00000df0                        _etext = .
 
-.data           0x00800100      0x23e load address 0x00000df0
+.data           0x00800100      0x23c load address 0x00000df0
                 0x00800100                        PROVIDE (__data_start = .)
  *(.data)
  .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
@@ -496,56 +496,56 @@ END GROUP
  .data          0x00800100        0x0 bin/debug/uart.o
  .data          0x00800100        0x0 bin/debug/customers.o
  .data          0x00800100        0x0 bin/debug/customers_data.o
- .data          0x00800100        0x2 bin/debug/utilities.o
-                0x00800100                randomSeed
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_divmodhi4.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_clear_bss.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_ctors.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_udivmodhi4.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_tablejump2.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(iob.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(printf.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(puts.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(fputc.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_prologue.o)
- .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_epilogue.o)
+ .data          0x00800100        0x0 bin/debug/utilities.o
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_ctors.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_tablejump2.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(iob.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(printf.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(puts.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(strnlen.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(fputc.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_prologue.o)
+ .data          0x00800100        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_epilogue.o)
  *(.data*)
  *(.gnu.linkonce.d*)
  *(.rodata)
- .rodata        0x00800102       0x18 bin/debug/lcd.o
- .rodata        0x0080011a      0x192 bin/debug/customers_data.o
-                0x0080011a                customerCount
+ .rodata        0x00800100       0x18 bin/debug/lcd.o
+ .rodata        0x00800118      0x192 bin/debug/customers_data.o
+                0x00800118                customerCount
  *(.rodata*)
  .rodata.str1.1
-                0x008002ac       0x91 bin/debug/main.o
+                0x008002aa       0x91 bin/debug/main.o
                                  0x6b (size before relaxing)
  .rodata.str1.1
-                0x0080033d        0x9 bin/debug/lcd.o
+                0x0080033b        0x9 bin/debug/lcd.o
  .rodata.str1.1
-                0x0080033d       0x1d bin/debug/customers_data.o
+                0x0080033b       0x1d bin/debug/customers_data.o
  *(.gnu.linkonce.r*)
-                0x0080035a                        . = ALIGN (0x2)
- *fill*         0x0080033d        0x1 
-                0x0080033e                        _edata = .
-                0x0080033e                        PROVIDE (__data_end = .)
+                0x00800358                        . = ALIGN (0x2)
+ *fill*         0x0080033b        0x1 
+                0x0080033c                        _edata = .
+                0x0080033c                        PROVIDE (__data_end = .)
 
-.bss            0x0080033e      0x352
-                0x0080033e                        PROVIDE (__bss_start = .)
+.bss            0x0080033c      0x354
+                0x0080033c                        PROVIDE (__bss_start = .)
  *(.bss)
- .bss           0x0080033e        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
- .bss           0x0080033e        0x0 bin/debug/main.o
- .bss           0x0080033e        0x0 bin/debug/lcd.o
- .bss           0x0080033e       0x1c bin/debug/uart.o
- .bss           0x0080035a        0x0 bin/debug/customers.o
- .bss           0x0080035a      0x330 bin/debug/customers_data.o
-                0x0080035a                customers
- .bss           0x0080068a        0x0 bin/debug/utilities.o
+ .bss           0x0080033c        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .bss           0x0080033c        0x0 bin/debug/main.o
+ .bss           0x0080033c        0x0 bin/debug/lcd.o
+ .bss           0x0080033c       0x1c bin/debug/uart.o
+ .bss           0x00800358        0x0 bin/debug/customers.o
+ .bss           0x00800358      0x330 bin/debug/customers_data.o
+                0x00800358                customers
+ .bss           0x00800688        0x2 bin/debug/utilities.o
+                0x00800688                randomSeed
  .bss           0x0080068a        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_divmodhi4.o)
  .bss           0x0080068a        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
  .bss           0x0080068a        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
@@ -568,7 +568,7 @@ END GROUP
  *(COMMON)
                 0x00800690                        PROVIDE (__bss_end = .)
                 0x00000df0                        __data_load_start = LOADADDR (.data)
-                0x0000102e                        __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000102c                        __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800690        0x0
                 [!provide]                        PROVIDE (__noinit_start = .)
