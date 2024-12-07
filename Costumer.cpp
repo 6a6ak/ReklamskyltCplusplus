@@ -14,4 +14,5 @@ char* Costumer::GetMessage(int i) {
         return messages[i];
     }
     return "";
+    
 }
