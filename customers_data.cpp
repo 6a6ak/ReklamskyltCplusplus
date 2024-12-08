@@ -14,6 +14,10 @@ const char petterMessages[][50] = {
     "Let Petter build for you!",
     "Building black? Call Petter!"
 };
+const char langbenMessages[][50] = {
+    "Mysterier? Ring Langben",
+    "Langben fixar biffen"
+};
 const char nackademinMessages[][50] = {
     "   NackademiN"
 };
@@ -23,6 +27,7 @@ Customer customers[] = {
     Customer("Harry", 5000, harryMessages, 3),
     Customer("Anka", 3000, ankaMessages, 2),
     Customer("Petter", 1500, petterMessages, 2),
+    Customer("Langbens detektivbyra", 4000, langbenMessages, 2),
     Customer("Nackademin", 2000, nackademinMessages, 1)
 };
 
