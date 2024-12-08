@@ -32,42 +32,59 @@ public:
     int messageCount;
 
 
-    Customer(char name[], char firstMessage[] = "", char secondMessage[] = "", char thirdMessage[] = "", int paid = 0, int count = 0){
+    Customer(char name[], int paid = 0, int count = 0, char firstMessage[] = "", char secondMessage[] = "", char thirdMessage[] = ""){
         strcpy(companyName, name);
-
+        strcpy(messages[0], firstMessage);
+        if (count > 1){
+            strcpy(messages[1], secondMessage);
+        }
+        if (count > 1){
+            strcpy(messages[2], thirdMessage);
+        }
+        
+            amountPaid = paid;
+            messageCount = count;
 
     }
     };
-    
+
     Customer customers[] = {
         Customer("Hederliga Harrys Bilar",
+            5000,
+            3,
             "köp bil hos harry",
             "En god bilaffär (för harry!)",
-            "Hederliga harrys bilar,",
-            5000, 3),
+            "Hederliga harrys bilar"),
         
         Customer("Farmor Ankas pajer AB",
+            3000,
+            2,
             "Köp paj hos farmor anka",
-            "Skynda innan mårten äter alla pajer","",
-            3000, 2),
+            "Skynda innan mårten äter alla pajer"
+            ),
            
          Customer("Svarte Petters Svartbyggen",
+            1500,
+            2,
             "Låt petter bygga åt dig",
-            "Bygg Svart? Ring Petter",
-            "",
-            1500, 2),
+            "Bygg Svart? Ring Petter"
+            
+             ),
             
         Customer("Långbens detektivbyrå",
+            4000,
+            2,
             "Mysterier? Ring Långben",
-            "Långben fixar biffen",
-            "",
-            4000, 2),
+            "Långben fixar biffen"
+            
+             ),
             
         Customer("IOT24",
-            "IOT:s Reklambyrå",
-            "",
-            "",
-            1000, 1),
+            1000,
+            2,
+            "IOT:s Reklambyrå"
+            
+            ),
     };
  
 
