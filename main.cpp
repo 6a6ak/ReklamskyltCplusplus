@@ -38,7 +38,7 @@ public:
         if (count > 1){
             strcpy(messages[1], secondMessage);
         }
-        if (count > 1){
+        if (count > 2){
             strcpy(messages[2], thirdMessage);
         }
         
