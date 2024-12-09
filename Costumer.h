@@ -1,6 +1,7 @@
 #ifndef __COSTUMER_H
 #define __COSTUMER_H
 
+// Class Costumer
 class Costumer{
  private:
  char companyname[100];

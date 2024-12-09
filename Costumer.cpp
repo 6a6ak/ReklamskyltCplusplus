@@ -1,6 +1,7 @@
 #include "Costumer.h"
 #include <string.h>
 
+// Constructor for Costumer class
 Costumer::Costumer(char *companyname, char *message1, char *message2, char *message3, int pay)
 {
     strcpy(this->companyname, companyname);
@@ -9,7 +10,7 @@ Costumer::Costumer(char *companyname, char *message1, char *message2, char *mess
     strcpy(this->messages[2], message3);
     this->pay = pay;
 }
-
+// Getters for Costumer class
 char* Costumer::GetCompanyName() {
     return companyname;
 }
