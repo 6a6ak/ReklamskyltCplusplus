@@ -1,7 +1,7 @@
 #include "utilities.h"
 #include <avr/io.h>  // For register access
 
-unsigned int randomSeed = 7; // Global random seed
+unsigned int randomSeed = 13013; // Global random seed
 
 // Function to initialize the ADC and read analog value from a specific pin
 unsigned int readAnalog(uint8_t pin) {
