@@ -1,9 +1,4 @@
 
-
-### Release branch:
-
-We keep the latest achievements of the project in this branch and then tag it so that it can be downloaded as a ZIP file. This way, we protect a specific point of the project. It is expected that, in the end, we will have a final version that can be downloaded and merged into the main branch.
-
 # **Customer Message Display on LCD**
 
 This project dynamically displays customer messages on an LCD screen based on their payment weight. The messages are selected randomly but weighted by the customer's payment. Additionally, no message is displayed twice consecutively. The output is also logged on the UART terminal for monitoring.
