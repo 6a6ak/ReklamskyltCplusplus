@@ -34,3 +34,7 @@
 .vscode/launch.json
 .vscode/settings.json
 *.json
+.gitignore
+*.vscode
+wokwi/*
+wokwi/*.json
