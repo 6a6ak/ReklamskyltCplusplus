@@ -4,7 +4,7 @@
 #include "uart.h"
 #include <stdio.h>
 #include <string.h>
-
+// Custom delay function
 void custom_delay_ms(int delayMs)
 {
     while (delayMs > 0)
@@ -21,7 +21,7 @@ void custom_delay_ms(int delayMs)
         }
     }
 }
-
+// Main function
 int main()
 {
     initializeRandomSeed();
@@ -54,7 +54,7 @@ int main()
 
             customerAttempts++;
         }
-
+// If no valid customer is found, restart the loop
         if (!selectedCustomer || customerAttempts >= customerCount)
         {
             printf("Error: Unable to find a valid customer. Restarting...\n");
@@ -63,7 +63,7 @@ int main()
 
         const char *message = nullptr;
         int messageAttempts = 0;
-
+//
         
         while (messageAttempts < selectedCustomer->getMessageCount())
         {
@@ -75,7 +75,7 @@ int main()
 
             messageAttempts++;
         }
-
+// If no valid message is found, restart the loop
         if (!message || messageAttempts >= selectedCustomer->getMessageCount())
         {
             
