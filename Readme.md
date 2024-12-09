@@ -2,10 +2,9 @@
 # **Customer Message Display on LCD**
 
 This project dynamically displays customer messages on an LCD screen based on their payment weight. The messages are selected randomly but weighted by the customer's payment. Additionally, no message is displayed twice consecutively. The output is also logged on the UART terminal for monitoring.
-<center>
-## ![img](image.png)
-   
-</center>
+
+![img](image.png){.center}
+
 
 ## **Features**
 
