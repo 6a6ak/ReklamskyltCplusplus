@@ -1,36 +1,26 @@
 #include "random.h"
 #include <avr/io.h>  // For register access
 
-unsigned int randomSeed = 13013; // Global random seed
+unsigned int randomSeed = 7; // Global random seed
 
-// ADC initialization
-void adcInit() {
-    ADMUX = (1 << REFS0); // AVCC with external capacitor
-    ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1); // Enable ADC, prescaler = 64
-}
-
-// Timer1 initialization
-void timer1Init() {
-    TCCR1B = (1 << CS10); // Timer1 with no prescaling
-}
-
-// Read analog value from a specific pin
+// Function to initialize the ADC and read analog value from a specific pin
 unsigned int readAnalog(uint8_t pin) {
-    ADMUX = (ADMUX & 0xF8) | (pin & 0x07); // Select pin without affecting other bits
-    ADCSRA |= (1 << ADSC); // Start conversion
+    // Configure ADC
+    ADMUX = (1 << REFS0) | (pin & 0x07); // AVCC with external capacitor, select pin
+    ADCSRA = (1 << ADEN) | (1 << ADSC) | (1 << ADPS2) | (1 << ADPS1); // Enable ADC, start conversion, prescaler = 64
 
     while (ADCSRA & (1 << ADSC)); // Wait for conversion to complete
 
     return ADCW; // Return the ADC value
 }
 
-// Initialize random seed using ADC and Timer1
+// Function to initialize random seed using analog pin
 void initializeRandomSeed() {
-    randomSeed = readAnalog(0) ^ (readAnalog(1) << 8) ^ (TCNT1 & 0xFFFF);
+    randomSeed = readAnalog(0); // Directly set randomSeed with the value from A0
 }
 
-// Generate pseudo-random number
+// Pseudo-random number generator function
 int pseudoRandom() {
-    randomSeed = (randomSeed * 1664525 + 1013904223) & 0xFFFFFFFF; // 32-bit LCG
-    return randomSeed & 0xFFFF; // Return lower 16 bits
+    randomSeed = (randomSeed * 1103515245 + 12345) & 0x7FFF; // Generate next pseudo-random number
+    return randomSeed;
 }
