@@ -4,7 +4,7 @@
 #include "uart.h"
 #include <stdio.h>
 #include <string.h>
-
+// delay function
 void custom_delay_ms(int delayMs)
 {
     while (delayMs > 0)
@@ -21,7 +21,7 @@ void custom_delay_ms(int delayMs)
         }
     }
 }
-
+// Main function
 int main()
 {
     initializeRandomSeed();
@@ -33,20 +33,20 @@ int main()
 
     const char *lastMessage = nullptr; 
     Customer *lastCustomer = nullptr;
-
+// Main loop
     while (1)
     {
         Customer *selectedCustomer = nullptr;
         int customerAttempts = 0;
         const int maxAttempts = 10;
 
-        
+        // Select a random customer
         while (customerAttempts < customerCount)
         {
             int randomIndex = pseudoRandom() % customerCount;
             selectedCustomer = &customers[randomIndex];
 
-            
+            // Check if the customer has messages and a display weight
             if (selectedCustomer != lastCustomer &&
                 selectedCustomer->getMessageCount() > 0 &&
                 selectedCustomer->getDisplayWeight() > 0)
@@ -64,18 +64,18 @@ int main()
         const char *message = nullptr;
         int messageAttempts = 0;
 
-        
+       
         while (messageAttempts < selectedCustomer->getMessageCount())
         {
             message = selectedCustomer->getRandomMessage();
 
-            
+       
             if (message != nullptr && message[0] != '\0' && strcmp(message, lastMessage) != 0)
                 break;
 
             messageAttempts++;
         }
-
+// Check if the message is valid
         if (!message || messageAttempts >= selectedCustomer->getMessageCount())
         {
             
@@ -83,7 +83,7 @@ int main()
             continue; 
         }
 
-        
+        // Display the message on the LCD
         lcd.Clear();
         lcd.WriteText((char *)message);
 
