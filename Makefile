@@ -5,13 +5,13 @@ OBJDUMP="C:\avr\bin\avr-objdump"
 AVRSIZE="C:\avr\bin\avr-size"
 OBJISP="C:\avr\bin\avrdude"
 MCU=atmega328p
-CFLAGS=-Wall -Wextra  -Wundef -pedantic \
-		-Os  -DF_CPU=16000000UL -mmcu=${MCU} -DBAUD=19200
+CFLAGS=-Wall -Wextra -Wundef -pedantic \
+		-Os -DF_CPU=16000000UL -mmcu=${MCU} -DBAUD=19200 -I.
 LDFLAGS=-mmcu=$(MCU)
 PORT=\\\\.\\COM3
 BIN=avrdemo
 OUT=${BIN}.hex
-SOURCES = main.cpp lcd.cpp uart.cpp Costumer.cpp
+SOURCES = main.cpp lcd.cpp uart.cpp customers.cpp customers_data.cpp utilities.cpp
 
 DEBUG?=1
 
@@ -23,11 +23,11 @@ endif
 
 OBJS =  $(addprefix $(OUTPUTDIR)/,$(SOURCES:.cpp=.o))
 
-all: $(OUTPUTDIR)  $(OUT) 
+all: $(OUTPUTDIR) $(OUT)
 
-$(OBJS): Makefile
+$(OBJS): Makefile $(wildcard *.h)
 
-$(OUTPUTDIR)/%.o:%.cpp
+$(OUTPUTDIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) -MD -o $@ -c $<
 
 %.lss: %.elf
@@ -37,20 +37,22 @@ $(OUTPUTDIR)/%.o:%.cpp
 	$(CC) -Wl,-Map=$(@:.elf=.map) $(LDFLAGS) -o $@ $^
 	$(AVRSIZE) $@
 
-
-$(OBJS):$(SOURCES)
-
 %.hex: %.elf
 	$(OBJCOPY) -O ihex -R .fuse -R .lock -R .user_signatures -R .comment $< $@
 
 isp: ${BIN}.hex
 	$(OBJISP) -F -V -c arduino -p ${MCU} -P ${PORT} -U flash:w:$<
 
-
 clean:
-	del "$(OUT)"  *.map *.P *.d
+	@if exist "$(OUT)" del "$(OUT)"
+	@if exist "*.map" del "*.map"
+	@if exist "*.P" del "*.P"
+	@if exist "*.d" del "*.d"
+	@if exist "$(OUTPUTDIR)" rmdir /s /q "$(OUTPUTDIR)"
 
 $(OUTPUTDIR): 
-	@mkdir "$(OUTPUTDIR)"
-		   	
+	@if not exist "$(OUTPUTDIR)" mkdir "$(OUTPUTDIR)"
+
+-include $(OBJS:.o=.d)
+
 .PHONY: clean dirs
