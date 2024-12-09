@@ -40,7 +40,7 @@ int main()
 {
     // Seed the random number generator
     initializeRandomSeed();
-    // randomSeed = 12345;
+    // randomSeed from A0 pin;
 
     // Initialize the LCD
     HD44780 lcd;
@@ -69,7 +69,7 @@ int main()
         {
             Customer *selectedCustomer = customerPointers[i];
 
-            // Display all messages for the current customer
+            // Select the customer & display their messages
             for (int j = 0; j < selectedCustomer->getMessageCount(); ++j)
             {
                 const char *message = selectedCustomer->getMessage(j);
@@ -87,7 +87,9 @@ int main()
         }
 
         // Log end of round
+        printf("__________________________________________\n");
         printf("Completed one round of displaying all ads.\n");
+        printf("__________________________________________\n");
     }
 
     int randomValue = pseudoRandom();
