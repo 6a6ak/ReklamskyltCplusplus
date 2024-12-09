@@ -1,4 +1,4 @@
-#include "utilities.h"
+#include "random.h"
 #include <avr/io.h>  // For register access
 
 unsigned int randomSeed = 13013; // Global random seed

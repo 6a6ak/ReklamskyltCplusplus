@@ -58,7 +58,7 @@ LOAD bin/debug/lcd.o
 LOAD bin/debug/uart.o
 LOAD bin/debug/customers.o
 LOAD bin/debug/customers_data.o
-LOAD bin/debug/utilities.o
+LOAD bin/debug/random.o
 LOAD C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a
 LOAD C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libm.a
 START GROUP
@@ -284,7 +284,7 @@ END GROUP
                 0x00000566                Customer::getRandomMessage() const
                 0x0000058a                Customer::getDisplayWeight() const
  .text          0x0000059c        0x0 bin/debug/customers_data.o
- .text          0x0000059c       0x58 bin/debug/utilities.o
+ .text          0x0000059c       0x58 bin/debug/random.o
                 0x0000059c                readAnalog(unsigned char)
                 0x000005bc                initializeRandomSeed()
                 0x000005cc                pseudoRandom()
@@ -496,7 +496,7 @@ END GROUP
  .data          0x00800100        0x0 bin/debug/uart.o
  .data          0x00800100        0x0 bin/debug/customers.o
  .data          0x00800100        0x0 bin/debug/customers_data.o
- .data          0x00800100        0x2 bin/debug/utilities.o
+ .data          0x00800100        0x2 bin/debug/random.o
                 0x00800100                randomSeed
  .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_divmodhi4.o)
  .data          0x00800102        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
@@ -544,7 +544,7 @@ END GROUP
  .bss           0x008003fe        0x0 bin/debug/customers.o
  .bss           0x008003fe      0x3fc bin/debug/customers_data.o
                 0x008003fe                customers
- .bss           0x008007fa        0x0 bin/debug/utilities.o
+ .bss           0x008007fa        0x0 bin/debug/random.o
  .bss           0x008007fa        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_divmodhi4.o)
  .bss           0x008007fa        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_exit.o)
  .bss           0x008007fa        0x0 C:/avr/bin/../lib/gcc/avr/14.1.0/avr5\libgcc.a(_copy_data.o)
@@ -620,7 +620,7 @@ END GROUP
  .comment       0x00000012       0x13 bin/debug/uart.o
  .comment       0x00000012       0x13 bin/debug/customers.o
  .comment       0x00000012       0x13 bin/debug/customers_data.o
- .comment       0x00000012       0x13 bin/debug/utilities.o
+ .comment       0x00000012       0x13 bin/debug/random.o
  .comment       0x00000012       0x13 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(iob.o)
  .comment       0x00000012       0x13 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(printf.o)
  .comment       0x00000012       0x13 C:/avr/bin/../lib/gcc/avr/14.1.0/../../../../avr/lib/avr5\libc.a(puts.o)

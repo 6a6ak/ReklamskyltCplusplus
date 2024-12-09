@@ -1,5 +1,5 @@
 #include "customers.h"
-#include "utilities.h" // Include for pseudoRandom()
+#include "random.h" // Include for pseudoRandom()
 
 // Constructor definition
 Customer::Customer(const char *customerName, int customerPayment, const char customerMessages[][50], int messageCount)

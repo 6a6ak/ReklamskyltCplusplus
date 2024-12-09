@@ -1,6 +1,6 @@
 #include "lcd.h"
 #include "customers_data.h"
-#include "utilities.h"
+#include "random.h"
 #include "uart.h"
 #include <avr/io.h>
 #include <util/delay.h>

@@ -1,5 +1,5 @@
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#ifndef RANDOM_H
+#define RANDOM_H
 
 extern unsigned int randomSeed; // Global random seed
 
