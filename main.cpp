@@ -4,7 +4,7 @@
 #include "uart.h"
 #include <stdio.h>
 #include <string.h>
-// delay function
+// Custom delay function
 void custom_delay_ms(int delayMs)
 {
     while (delayMs > 0)
@@ -33,20 +33,20 @@ int main()
 
     const char *lastMessage = nullptr; 
     Customer *lastCustomer = nullptr;
-// Main loop
+
     while (1)
     {
         Customer *selectedCustomer = nullptr;
         int customerAttempts = 0;
         const int maxAttempts = 10;
 
-        // Select a random customer
+        
         while (customerAttempts < customerCount)
         {
             int randomIndex = pseudoRandom() % customerCount;
             selectedCustomer = &customers[randomIndex];
 
-            // Check if the customer has messages and a display weight
+            
             if (selectedCustomer != lastCustomer &&
                 selectedCustomer->getMessageCount() > 0 &&
                 selectedCustomer->getDisplayWeight() > 0)
@@ -54,7 +54,7 @@ int main()
 
             customerAttempts++;
         }
-
+// If no valid customer is found, restart the loop
         if (!selectedCustomer || customerAttempts >= customerCount)
         {
             printf("Error: Unable to find a valid customer. Restarting...\n");
@@ -63,19 +63,19 @@ int main()
 
         const char *message = nullptr;
         int messageAttempts = 0;
-
-       
+//
+        
         while (messageAttempts < selectedCustomer->getMessageCount())
         {
             message = selectedCustomer->getRandomMessage();
 
-       
+            
             if (message != nullptr && message[0] != '\0' && strcmp(message, lastMessage) != 0)
                 break;
 
             messageAttempts++;
         }
-// Check if the message is valid
+// If no valid message is found, restart the loop
         if (!message || messageAttempts >= selectedCustomer->getMessageCount())
         {
             
@@ -83,7 +83,7 @@ int main()
             continue; 
         }
 
-        // Display the message on the LCD
+        
         lcd.Clear();
         lcd.WriteText((char *)message);
 
