@@ -2,11 +2,9 @@
 #include "customers_data.h"
 #include "random.h"
 #include "uart.h"
-#include <avr/io.h>
-#include <util/delay.h>
 #include <stdio.h>
+#include <string.h>
 
-// Delay function for millisecond delays
 void custom_delay_ms(int delayMs)
 {
     while (delayMs > 0)
@@ -24,76 +22,82 @@ void custom_delay_ms(int delayMs)
     }
 }
 
-// Function to shuffle customer order for randomness
-void shuffleCustomers(Customer *customers[], int count)
-{
-    for (int i = count - 1; i > 0; --i)
-    {
-        int j = pseudoRandom() % (i + 1);
-        Customer *temp = customers[i];
-        customers[i] = customers[j];
-        customers[j] = temp;
-    }
-}
-
 int main()
 {
-    // Seed the random number generator
     initializeRandomSeed();
-    // randomSeed from A0 pin;
-
-    // Initialize the LCD
     HD44780 lcd;
     lcd.Initialize();
     lcd.Clear();
-
-    // Initialize UART for debugging
     init_serial();
-    printf("UART Initialized. Starting program...\n");
+    printf("UART Initialized. Starting...\n");
 
-    // Array to hold pointers to customers
-    Customer *customerPointers[customerCount];
-    for (int i = 0; i < customerCount; ++i)
-    {
-        customerPointers[i] = &customers[i];
-    }
+    const char *lastMessage = nullptr; 
+    Customer *lastCustomer = nullptr;
 
-    // Start the main loop
     while (1)
     {
-        // Shuffle customers for randomness in each round
-        shuffleCustomers(customerPointers, customerCount);
+        Customer *selectedCustomer = nullptr;
+        int customerAttempts = 0;
+        const int maxAttempts = 10;
 
-        // Display ads for each customer in the shuffled order
-        for (int i = 0; i < customerCount; ++i)
+        
+        while (customerAttempts < customerCount)
         {
-            Customer *selectedCustomer = customerPointers[i];
+            int randomIndex = pseudoRandom() % customerCount;
+            selectedCustomer = &customers[randomIndex];
 
-            // Select the customer & display their messages
-            for (int j = 0; j < selectedCustomer->getMessageCount(); ++j)
-            {
-                const char *message = selectedCustomer->getMessage(j);
+            
+            if (selectedCustomer != lastCustomer &&
+                selectedCustomer->getMessageCount() > 0 &&
+                selectedCustomer->getDisplayWeight() > 0)
+                break;
 
-                // Display the message on the LCD
-                lcd.Clear();
-                lcd.WriteText((char *)message);
-
-                // Log to the serial port
-                printf("Customer: %s\nMessage: %s\n", selectedCustomer->getName(), message);
-
-                // Display message for 20 seconds
-                custom_delay_ms(3000);
-            }
+            customerAttempts++;
         }
 
-        // Log end of round
-        printf("__________________________________________\n");
-        printf("Completed one round of displaying all ads.\n");
-        printf("__________________________________________\n");
-    }
+        if (!selectedCustomer || customerAttempts >= customerCount)
+        {
+            printf("Error: Unable to find a valid customer. Restarting...\n");
+            continue;
+        }
 
-    int randomValue = pseudoRandom();
-    printf("Random value: %d\n", randomValue);
+        const char *message = nullptr;
+        int messageAttempts = 0;
+
+        
+        while (messageAttempts < selectedCustomer->getMessageCount())
+        {
+            message = selectedCustomer->getRandomMessage();
+
+            
+            if (message != nullptr && message[0] != '\0' && strcmp(message, lastMessage) != 0)
+                break;
+
+            messageAttempts++;
+        }
+
+        if (!message || messageAttempts >= selectedCustomer->getMessageCount())
+        {
+            
+            printf("Warning: Message from customer %s is repeated or invalid. Keeping previous message.\n", selectedCustomer->getName());
+            continue; 
+        }
+
+        
+        lcd.Clear();
+        lcd.WriteText((char *)message);
+
+        printf("Customer: %s (Weight: %d)\nMessage: %s\n",
+               selectedCustomer->getName(),
+               selectedCustomer->getDisplayWeight(),
+               message);
+
+        
+        lastMessage = message;
+        lastCustomer = selectedCustomer;
+
+        custom_delay_ms(2000);
+    }
 
     return 0;
 }

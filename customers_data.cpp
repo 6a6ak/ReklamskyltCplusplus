@@ -10,7 +10,7 @@ const char ankaMessages[][50] = {
     " Hurry, before   they are gone!"};
 const char petterMessages[][50] = {
     "Let Petter build    for you!",
-    "Building black?   Call Petter!"};
+    " Building black?   Call Petter!"};
 const char langbenMessages[][50] = {
     "Mysterier?      Ring Langben",
     "Langben fixar      biffen"};
